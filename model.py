@@ -97,11 +97,10 @@ class Projects(db.Model):
 class Daily_Reports(db.Model):
     """A Daily Report."""
 
-    __tablename__ = "daily_report"
+    __tablename__ = "daily_reports"
 
-    daily_report_id = db.Column(db.Integer, autoincrement=True, unique=True, primary_key=True)
+    daily_report_id = db.Column(db.Integer, autoincrement=True, A;unique=True, primary_key=True)
     daily_report_name = db.Column(db.String, unique=True, nullable=False)
-    instructions = db.Column(db.String)
     project_id = db.Column(db.Integer, db.ForeignKey('Projects.project_id'))
     employee_id = db.Column(db.Integer, db.ForeignKey('Employees.employee_id'))
     created_at = db.Column(db.DateTime)
@@ -136,16 +135,16 @@ class Daily_Reports(db.Model):
     
 #---------------------------------------------------------------------#
 
-# def connect_to_db(app):
-#     """Connect the database to Flask app."""
+def connect_to_db(app):
+    """Connect the database to Flask app."""
 
-#     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///projects'
-#     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#     db.app = app
-#     db.init_app(app)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.app = app
+    db.init_app(app)
 
 
-# if __name__ == "__main__":
-#     from server import app
-#     connect_to_db(app)
-#     print("Connected to DB.")
+if __name__ == "__main__":
+    from server import app
+    connect_to_db(app)
+    print("Connected to DB.")
