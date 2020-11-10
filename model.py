@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+app = Flask(__name__)
 
 
 #---------------------------------------------------------------------#
@@ -99,7 +100,7 @@ class Daily_Reports(db.Model):
 
     __tablename__ = "daily_reports"
 
-    daily_report_id = db.Column(db.Integer, autoincrement=True, A;unique=True, primary_key=True)
+    daily_report_id = db.Column(db.Integer, autoincrement=True, unique=True, primary_key=True)
     daily_report_name = db.Column(db.String, unique=True, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('Projects.project_id'))
     employee_id = db.Column(db.Integer, db.ForeignKey('Employees.employee_id'))
@@ -136,7 +137,7 @@ class Daily_Reports(db.Model):
 #---------------------------------------------------------------------#
 
 def connect_to_db(app):
-    """Connect the database to Flask app."""
+    """Connect the database to our Flask app."""
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -145,6 +146,12 @@ def connect_to_db(app):
 
 
 if __name__ == "__main__":
-    from server import app
     connect_to_db(app)
     print("Connected to DB.")
+
+    handle_input()
+
+    # To be tidy, we'll close our database connection -- though, since this
+    # is where our program ends, we'd quit anyway.
+
+    db.session.close()
