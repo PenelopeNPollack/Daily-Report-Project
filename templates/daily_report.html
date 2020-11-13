@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Daily Report</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <div class="col">
+      <h1>Attractions Install Advisor Daily Activity Report</h1>
+    </div>
+  </div>
+
+  
+<form>
+  <form action="/daily_report" method="POST">
+    
+    
+    <div>
+        Project Number:
+        <select name="project_id">
+          {% for proj in projectss %}
+      <option value="{{ proj.project_id }}">{{ project.project_id }}</option>
+      {% endfor %}
+    </select>
+    </div>
+        
+    <div>
+        Project Name:  
+        <select name="project_id">
+          {% for proj in projects %}
+          <option value="{{ proj.project_id }}">{{ project.project_name }}</option>
+          {% endfor %}
+        </select>  
+    </div>
+
+    <div>
+        Site Supervisor:    
+        <select name="employee_id">
+          {% for emp in employees %}
+          <option value="{{ emp.employee_id }}">{{ employee.full_name }}</option>
+          {% endfor %}
+        </select>  
+    </div>
+
+    <div>
+        Days on Site: <span id="days-onsite-counter">1</span>     
+    </div>
+    <hr></hr>
+    <div>
+        Equipment on Site: 
+        <p>
+        <textarea name="equipment_onsite"></textarea>
+        </p>
+    </div>
+    
+    <div>
+        Labor on Site (List who is working on site): 
+        <p>
+        <textarea name="labor_onsite"></textarea>
+        </p>
+        
+         Quantity of labor on Site:
+        <p>
+          <textarea name="equipment_onsite"></textarea>
+        </p>
+    </div>
+    
+    <div>
+        Work Performed:
+        <p>
+        <textarea name="worked_performed"></textarea>
+        </p>
+    </div>
+
+    <div>
+        Problems Encounterd:
+        <p>
+        <textarea name="problems_encountered"></textarea>
+        </p>
+      </div>
+
+      <div>
+        Other Comments:
+        <p>
+        <textarea name="other_comments"></textarea>
+        </p>
+      </div>
+
+      <div>
+         Site Supervisors Requests
+            (Site Supervisor to follow up with Project Manager):
+        <p>
+        <textarea name="site_supervisors_requests"></textarea>
+        </p>
+      </div>
+
+      <div>
+        Client Requests:
+        <p><textarea name="client_requests"></textarea>
+        </p>
+      </div> 
+      
+      <div>
+        <button type="submit"></button>
+      </div>
+      
+ </form>     
+
+    
