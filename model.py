@@ -80,8 +80,12 @@ class DailyReport(db.Model):
     daily_report_id = db.Column(
         db.Integer, autoincrement=True, unique=True, primary_key=True
     )
-    daily_report_name = db.Column(db.String, unique=True, nullable=False)
-    created_at = db.Column(db.DateTime)
+    
+    worked_performed = db.Column(db.Text)
+
+    site_supervisor_requests = db.Column(db.Text)
+
+    client_requests = db.Column(db.Text)
 
     project_id = db.Column(
         db.Integer, db.ForeignKey("projects.project_id"), nullable=False
