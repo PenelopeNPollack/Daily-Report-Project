@@ -80,17 +80,13 @@ class DailyReport(db.Model):
     daily_report_id = db.Column(
         db.Integer, autoincrement=True, unique=True, primary_key=True
     )
-    
+    days_on_site = db.Column(db.Integer)
     worked_performed = db.Column(db.Text)
-
-    site_supervisor_requests = db.Column(db.Text)
-
-    client_requests = db.Column(db.Text)
+    problems_encountered = db.Column(db.Text)
 
     project_id = db.Column(
         db.Integer, db.ForeignKey("projects.project_id"), nullable=False
     )
-
     project = db.relationship("Project", backref="reports")
 
     def __repr__(self):
