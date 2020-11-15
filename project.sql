@@ -43,7 +43,8 @@ CREATE TABLE public.daily_reports (
     employee_id integer,
     days_on_site integer,
     work_performed text,
-    problems_encountered text
+    problems_encountered text,
+    project_id int
 );
 
 
@@ -112,8 +113,8 @@ ALTER SEQUENCE public.employees_employee_id_seq OWNED BY public.employees.employ
 --
 
 CREATE TABLE public.projects (
-    projects_id integer NOT NULL,
-    name character varying(50) NOT NULL,
+    project_id integer NOT NULL,
+    project_name character varying(50) NOT NULL,
     planned_start_date date NOT NULL,
     actual_start_date date,
     actual_end_date date,
@@ -130,17 +131,17 @@ ALTER TABLE public.projects OWNER TO vagrant;
 
 CREATE TABLE public.projects_employees (
     employees_id integer,
-    projects_id integer
+    project_id integer
 );
 
 
 ALTER TABLE public.projects_employees OWNER TO vagrant;
 
 --
--- Name: projects_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+-- Name: projects_project_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
 --
 
-CREATE SEQUENCE public.projects_projects_id_seq
+CREATE SEQUENCE public.projects_project_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -149,13 +150,13 @@ CREATE SEQUENCE public.projects_projects_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.projects_projects_id_seq OWNER TO vagrant;
+ALTER TABLE public.projects_project_id_seq OWNER TO vagrant;
 
 --
--- Name: projects_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+-- Name: projects_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
 --
 
-ALTER SEQUENCE public.projects_projects_id_seq OWNED BY public.projects.projects_id;
+ALTER SEQUENCE public.projects_project_id_seq OWNED BY public.projects.project_id;
 
 
 --
@@ -173,10 +174,10 @@ ALTER TABLE ONLY public.employees ALTER COLUMN employee_id SET DEFAULT nextval('
 
 
 --
--- Name: projects projects_id; Type: DEFAULT; Schema: public; Owner: vagrant
+-- Name: projects project_id; Type: DEFAULT; Schema: public; Owner: vagrant
 --
 
-ALTER TABLE ONLY public.projects ALTER COLUMN projects_id SET DEFAULT nextval('public.projects_projects_id_seq'::regclass);
+ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('public.projects_project_id_seq'::regclass);
 
 
 --
@@ -199,7 +200,7 @@ COPY public.employees (employee_id, full_name, email, password) FROM stdin;
 -- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.projects (projects_id, name, planned_start_date, actual_start_date, actual_end_date, project_description, project_location) FROM stdin;
+COPY public.projects (project_id, project_name, planned_start_date, actual_start_date, actual_end_date, project_description, project_location) FROM stdin;
 \.
 
 
@@ -207,7 +208,7 @@ COPY public.projects (projects_id, name, planned_start_date, actual_start_date, 
 -- Data for Name: projects_employees; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.projects_employees (employees_id, projects_id) FROM stdin;
+COPY public.projects_employees (employees_id, project_id) FROM stdin;
 \.
 
 
@@ -226,10 +227,10 @@ SELECT pg_catalog.setval('public.employees_employee_id_seq', 1, false);
 
 
 --
--- Name: projects_projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+-- Name: projects_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('public.projects_projects_id_seq', 1, false);
+SELECT pg_catalog.setval('public.projects_project_id_seq', 1, false);
 
 
 --
@@ -257,11 +258,11 @@ ALTER TABLE ONLY public.employees
 
 
 --
--- Name: projects projects_name_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
+-- Name: projects project_name_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
 --
 
 ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT projects_name_key UNIQUE (name);
+    ADD CONSTRAINT projects_project_name_key UNIQUE (project_name);
 
 
 --
@@ -269,7 +270,7 @@ ALTER TABLE ONLY public.projects
 --
 
 ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT projects_pkey PRIMARY KEY (projects_id);
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (project_id);
 
 
 --
@@ -289,11 +290,11 @@ ALTER TABLE ONLY public.projects_employees
 
 
 --
--- Name: projects_employees projects_employees_projects_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+-- Name: projects_employees projects_employees_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
 --
 
 ALTER TABLE ONLY public.projects_employees
-    ADD CONSTRAINT projects_employees_projects_id_fkey FOREIGN KEY (projects_id) REFERENCES public.projects(projects_id);
+    ADD CONSTRAINT projects_employees_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(project_id);
 
 
 --

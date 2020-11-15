@@ -11,8 +11,8 @@ def check_user_login_info(email, password):
 def get_all_employees():
     return Employee.query.all()
     
-def get_all_projects():
-    return Project.query.all()
+# def get_all_projects():
+#     return Project.query.all()
     
 if __name__ == '__main__':
     from server import app
