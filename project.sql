@@ -40,10 +40,10 @@ SET default_with_oids = false;
 
 CREATE TABLE public.daily_reports (
     daily_report_id integer NOT NULL,
-    daily_report_name character varying NOT NULL,
-    project_id integer,
     employee_id integer,
-    created_at timestamp without time zone DEFAULT now()
+    days_on_site integer,
+    work_performed text,
+    problems_encountered text
 );
 
 
@@ -79,9 +79,7 @@ CREATE TABLE public.employees (
     employee_id integer NOT NULL,
     full_name character varying(100) NOT NULL,
     email character varying(50) NOT NULL,
-    user_id character varying(20) NOT NULL,
-    password character varying(20) NOT NULL,
-    roles character varying
+    password character varying(20) NOT NULL
 );
 
 
@@ -114,14 +112,13 @@ ALTER SEQUENCE public.employees_employee_id_seq OWNED BY public.employees.employ
 --
 
 CREATE TABLE public.projects (
-    project_id integer NOT NULL,
-    project_name character varying(50) NOT NULL,
+    projects_id integer NOT NULL,
+    name character varying(50) NOT NULL,
     planned_start_date date NOT NULL,
     actual_start_date date,
     actual_end_date date,
     project_description character varying,
-    project_location character varying,
-    daily_reports integer
+    project_location character varying
 );
 
 
@@ -132,7 +129,7 @@ ALTER TABLE public.projects OWNER TO vagrant;
 --
 
 CREATE TABLE public.projects_employees (
-    employee_id integer,
+    employees_id integer,
     projects_id integer
 );
 
@@ -140,25 +137,25 @@ CREATE TABLE public.projects_employees (
 ALTER TABLE public.projects_employees OWNER TO vagrant;
 
 --
--- Name: projects_project_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
+-- Name: projects_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: vagrant
 --
 
-CREATE SEQUENCE public.projects_project_id_seq
+CREATE SEQUENCE public.projects_projects_id_seq
     AS integer
-    START WITH 4000
+    START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
 
 
-ALTER TABLE public.projects_project_id_seq OWNER TO vagrant;
+ALTER TABLE public.projects_projects_id_seq OWNER TO vagrant;
 
 --
--- Name: projects_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+-- Name: projects_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
 --
 
-ALTER SEQUENCE public.projects_project_id_seq OWNED BY public.projects.project_id;
+ALTER SEQUENCE public.projects_projects_id_seq OWNED BY public.projects.projects_id;
 
 
 --
@@ -176,17 +173,17 @@ ALTER TABLE ONLY public.employees ALTER COLUMN employee_id SET DEFAULT nextval('
 
 
 --
--- Name: projects project_id; Type: DEFAULT; Schema: public; Owner: vagrant
+-- Name: projects projects_id; Type: DEFAULT; Schema: public; Owner: vagrant
 --
 
-ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('public.projects_project_id_seq'::regclass);
+ALTER TABLE ONLY public.projects ALTER COLUMN projects_id SET DEFAULT nextval('public.projects_projects_id_seq'::regclass);
 
 
 --
 -- Data for Name: daily_reports; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.daily_reports (daily_report_id, daily_report_name, project_id, employee_id, created_at) FROM stdin;
+COPY public.daily_reports (daily_report_id, employee_id, days_on_site, work_performed, problems_encountered) FROM stdin;
 \.
 
 
@@ -194,8 +191,7 @@ COPY public.daily_reports (daily_report_id, daily_report_name, project_id, emplo
 -- Data for Name: employees; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.employees (employee_id, full_name, email, user_id, password, roles) FROM stdin;
-1	Penny Pollack	penny.pollack@kpconst.com	poll0109	password	site supervisor
+COPY public.employees (employee_id, full_name, email, password) FROM stdin;
 \.
 
 
@@ -203,8 +199,7 @@ COPY public.employees (employee_id, full_name, email, user_id, password, roles) 
 -- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.projects (project_id, project_name, planned_start_date, actual_start_date, actual_end_date, project_description, project_location, daily_reports) FROM stdin;
-4000	New Hope Pool	2020-10-01	2020-11-01	\N	\N	\N	\N
+COPY public.projects (projects_id, name, planned_start_date, actual_start_date, actual_end_date, project_description, project_location) FROM stdin;
 \.
 
 
@@ -212,7 +207,7 @@ COPY public.projects (project_id, project_name, planned_start_date, actual_start
 -- Data for Name: projects_employees; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.projects_employees (employee_id, projects_id) FROM stdin;
+COPY public.projects_employees (employees_id, projects_id) FROM stdin;
 \.
 
 
@@ -227,30 +222,14 @@ SELECT pg_catalog.setval('public.daily_reports_daily_report_id_seq', 1, false);
 -- Name: employees_employee_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('public.employees_employee_id_seq', 1, true);
+SELECT pg_catalog.setval('public.employees_employee_id_seq', 1, false);
 
 
 --
--- Name: projects_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
+-- Name: projects_projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('public.projects_project_id_seq', 1, false);
-
-
---
--- Name: projects constraint_name; Type: CONSTRAINT; Schema: public; Owner: vagrant
---
-
-ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT constraint_name UNIQUE (daily_reports);
-
-
---
--- Name: daily_reports daily_reports_daily_report_name_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
---
-
-ALTER TABLE ONLY public.daily_reports
-    ADD CONSTRAINT daily_reports_daily_report_name_key UNIQUE (daily_report_name);
+SELECT pg_catalog.setval('public.projects_projects_id_seq', 1, false);
 
 
 --
@@ -278,11 +257,11 @@ ALTER TABLE ONLY public.employees
 
 
 --
--- Name: employees employees_user_id_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
+-- Name: projects projects_name_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
 --
 
-ALTER TABLE ONLY public.employees
-    ADD CONSTRAINT employees_user_id_key UNIQUE (user_id);
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT projects_name_key UNIQUE (name);
 
 
 --
@@ -290,23 +269,7 @@ ALTER TABLE ONLY public.employees
 --
 
 ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT projects_pkey PRIMARY KEY (project_id);
-
-
---
--- Name: projects projects_project_name_key; Type: CONSTRAINT; Schema: public; Owner: vagrant
---
-
-ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT projects_project_name_key UNIQUE (project_name);
-
-
---
--- Name: daily_reports daily_reports_daily_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
---
-
-ALTER TABLE ONLY public.daily_reports
-    ADD CONSTRAINT daily_reports_daily_report_id_fkey FOREIGN KEY (daily_report_id) REFERENCES public.projects(daily_reports);
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (projects_id);
 
 
 --
@@ -318,11 +281,11 @@ ALTER TABLE ONLY public.daily_reports
 
 
 --
--- Name: projects_employees projects_employees_employee_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
+-- Name: projects_employees projects_employees_employees_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
 --
 
 ALTER TABLE ONLY public.projects_employees
-    ADD CONSTRAINT projects_employees_employee_id_fkey FOREIGN KEY (employee_id) REFERENCES public.employees(employee_id);
+    ADD CONSTRAINT projects_employees_employees_id_fkey FOREIGN KEY (employees_id) REFERENCES public.employees(employee_id);
 
 
 --
@@ -330,15 +293,7 @@ ALTER TABLE ONLY public.projects_employees
 --
 
 ALTER TABLE ONLY public.projects_employees
-    ADD CONSTRAINT projects_employees_projects_id_fkey FOREIGN KEY (projects_id) REFERENCES public.projects(project_id);
-
-
---
--- Name: projects_employees projects_employees_projects_id_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: vagrant
---
-
-ALTER TABLE ONLY public.projects_employees
-    ADD CONSTRAINT projects_employees_projects_id_fkey1 FOREIGN KEY (projects_id) REFERENCES public.projects(project_id);
+    ADD CONSTRAINT projects_employees_projects_id_fkey FOREIGN KEY (projects_id) REFERENCES public.projects(projects_id);
 
 
 --

@@ -19,10 +19,8 @@ class Employee(db.Model):
     )
     full_name = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    user_id = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    role = db.Column(db.String)
-
+    
     projects = db.relationship(
         "Project", secondary="projects_employees", backref="employees"
     )
@@ -79,15 +77,16 @@ class DailyReport(db.Model):
 
     daily_report_id = db.Column(
         db.Integer, autoincrement=True, unique=True, primary_key=True
-    )
+    ) 
     days_on_site = db.Column(db.Integer)
-    worked_performed = db.Column(db.Text)
+    work_performed = db.Column(db.Text)
     problems_encountered = db.Column(db.Text)
 
     project_id = db.Column(
         db.Integer, db.ForeignKey("projects.project_id"), nullable=False
     )
-    project = db.relationship("Project", backref="reports")
+
+    project = db.relationship("Project", backref="daily_reports")
 
     def __repr__(self):
         repr_str = "<Daily_Reports daily_report_id={daily_report_id}>"
