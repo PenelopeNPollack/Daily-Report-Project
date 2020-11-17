@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}All Movies{% endblock %}
+
+{% block body %}
+  <h1>Welcome!</h1>
+
+  <h2>List of all Projects</h2>
+  <ul>
+    {% for proj in projects %}
+    <li><a href="/projects/{{ Project.project_id }}">{{ project.id }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+<p>
+    Project Name:
+    <select name="project_id">
+      {% for proj in projects %}
+      <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
+      {% endfor %}
+    </select>
+  </p>

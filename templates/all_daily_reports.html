@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}All Movies{% endblock %}
+
+{% block body %}
+  <h1>Welcome!</h1>
+
+  <h2>List of all Daily Reports</h2>
+  <ul>
+    {% for daily_report in daily_reports %}
+    <li><a href="/daily_reports/{{ daily_report.daily_report_id }}">{{ daily_report.id }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

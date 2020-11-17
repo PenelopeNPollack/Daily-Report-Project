@@ -1,6 +1,6 @@
 "use strict";
 
-const incrementDaysOnSite = (adaysOnSite) => {
+const incrementDaysOnSite = (daysOnSite) => {
     let daysOnSite = Number($('#days-on-site-counter').html());
     daysOnSite += 1;
   

@@ -1,46 +1,33 @@
-<!doctype html>
-<html>
+{% extends 'base.html' %}
+{% block title %}Daily Reports Home{% endblock %}
+{% block body %}
+  <h1>Welcome, Please Log In</h1>
 
-<head>
-  <title>Log In</title>
-</head>
+  <form action="/login" method="POST">
+    <p>
+      Email <input type="email" name="email">
+    </p>
 
-<body>
+    <p>
+      Password <input type="password" name="password">
+    </p>
 
-<div class="container">
-
-  <div class="pb-2 mt-4 mb-2 border-bottom">
-    <div class="col">
-      <h1>Welcome, Please Log In</h1>
-    </div>
-  </div>
-
-
-  <form action='/login' method="POST">
-
-    <div class="form-group">
-      <label> Email address
-        <input type="email" name='email'
-               class="form-control"
-               placeholder="Enter email">
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label>Enter Password
-        <input type="password" name='password'
-               class="form-control"
-               placeholder="Password">
-      </label>
-    </div>
-
-    <input class="btn btn-lg btn-primary btn-block" type="submit"></input>
-    
+    <p>
+      <input type="submit">
+    </p>
   </form>
-</div>
+{% endblock %} 
+  
 
 
 
-</body>
 
-</html>
+  
+
+
+
+
+
+    /<input class="btn btn-lg btn-primary btn-block" type="submit"></input>
+    
+

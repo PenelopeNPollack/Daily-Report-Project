@@ -70,29 +70,37 @@ class ProjectsEmployees(db.Model):
     )
 
 
+    def __repr__(self):
+        return f'<Rating rating_id={self.rating_id} score={self.score}>'
+
 class DailyReport(db.Model):
     """A Daily Report."""
 
     __tablename__ = "daily_reports"
 
     daily_report_id = db.Column(
-        db.Integer, autoincrement=True, unique=True, primary_key=True
-    ) 
+        db.Integer, autoincrement=True, unique=True, primary_key=True)
+    employee_id = db.Column(db.Integer, db.ForeignKey("employees.employee_id"), nullable=False) 
     days_on_site = db.Column(db.Integer)
     work_performed = db.Column(db.Text)
     problems_encountered = db.Column(db.Text)
-
+    client_requests = db.Column(db.Text)
     project_id = db.Column(
-        db.Integer, db.ForeignKey("projects.project_id"), nullable=False
-    )
+        db.Integer, db.ForeignKey("projects.project_id"), nullable=False)
+  
 
     project = db.relationship("Project", backref="daily_reports")
+    employee = db.relationship("Employee", backref="daily_reports")
 
     def __repr__(self):
-        repr_str = "<Daily_Reports daily_report_id={daily_report_id}>"
+        """Clear representation of a Daily Report."""
+        
+        repr_str = "<DailyReport_id={daily_report_id}>"
 
         return repr_str.format(daily_report_id=self.daily_report_id)
 
+        
+    
 
 # ---------------------------------------------------------------------#
 

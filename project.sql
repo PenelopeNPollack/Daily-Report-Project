@@ -44,6 +44,7 @@ CREATE TABLE public.daily_reports (
     days_on_site integer,
     work_performed text,
     problems_encountered text,
+    client_requests text,
     project_id int
 );
 
@@ -184,7 +185,7 @@ ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('pu
 -- Data for Name: daily_reports; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.daily_reports (daily_report_id, employee_id, days_on_site, work_performed, problems_encountered) FROM stdin;
+COPY public.daily_reports (daily_report_id, employee_id, days_on_site, work_performed, problems_encountered, client_requests, project_id) FROM stdin;
 \.
 
 
