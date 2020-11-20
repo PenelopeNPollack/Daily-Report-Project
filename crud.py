@@ -14,12 +14,16 @@ def get_all_employees():
 def get_all_projects():
     return Project.query.all()
 
-def get_all_daily_reports():
-    return DailyReport.query.all()
+def get_all_daily_reports_by_project(project_id):
+    return DailyReport.query.filter(DailyReport.project_id==project_id)
 
 def get_daily_report_by_id(daily_report_id):
-    """Return a movie by primary key."""
-    return DailyReport.query.get(daily_report_id)
+    """Return a DailyReport by primary key."""
+    return DailyReport.query.get(daily_report_id)()
+
+def get_count_of_daily_reports_by_project(project_id):
+    """ return a count of daily reports representing the number of days worked on a given project"""
+    return DailyReport.query.filter_by(project_id = project_id).count()
 
 def create_new_daily_report(employee_id, days_on_site, work_performed, problems_encountered, 
     client_requests, project_id):

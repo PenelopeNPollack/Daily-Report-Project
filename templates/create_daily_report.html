@@ -12,7 +12,7 @@
 
     <section>
       Project Name:
-      <select name="project_id">
+      <select name="project_id" id="project_select">
         {% for proj in projects %}
         <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
         {% endfor %}
@@ -29,7 +29,8 @@
     </section>
   
     <section>
-      Days On Site: <textarea class="counter" id="days-on-site-counter" input type="textarea" name="days_on_site">1</textarea>
+      Days On Site:
+      <button id='days_on_site'>view</button>          
     </section>
 
     <section>           
@@ -48,8 +49,8 @@
       <input id="add" type="submit" value="Add">
     </section>
     
-    <!-- <div id="submit-status"></div>     
-    <script src="/static/js/daily_report.js"></script>       -->
+       
+    <script src="/static/daily_report.js"></script>       
   </form>     
 
 {% endblock %} 
