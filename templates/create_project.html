@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Create Project{% endblock %}
+{% block body %}
+
+  <form action="/projects" method="POST"> 
+    <section>
+      <label>Project name</label>
+      <input type="text" name="project_name">
+    </section>
+
+    <section>
+      Site Supervisor:    
+      <select name="employee_id">
+        {% for emp in employees %}
+        <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
+          {% endfor %}
+    </select>
+
+    <section>           
+        Planned Start Date:<input type="date" id="planned_start_date" name="planned_start_date"> 
+    </section>
+
+    <section>           
+         Actual Start Date:<input type="date" id="planned_start_date" name="planned_start_date"> 
+    </section>
+    
+    <button type="submit">Submit</button>
+
+  </form>  
+{% endblock %} 

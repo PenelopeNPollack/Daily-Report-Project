@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Project Added{% endblock %}
+
+{% block body %}
+
+<a href="/projects/{{ projects.project_id }}">
+    {{ projects.project_name }} has been added</a>.
+
+{% endblock %}
+
+

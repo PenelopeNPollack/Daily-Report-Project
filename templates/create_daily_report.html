@@ -4,52 +4,52 @@
   <h1>Attractions Install Advisor Daily Activity Report</h1>
   <h2>Project Info:</h2>
   <ul>
-    <li><a href="/projects">View Project Info</a></li>
+    <li><a href="/projects">View All Projects</a></li>
+    <li><a href="/projects"> Create A New Project</a></li>
   </ul>
   <h3>Create a Daily Report</h3>
   <form action="/daily_report" method="POST">
 
-      <p>
-        Project Name:
-        <select name="project_id">
-          {% for proj in projects %}
-          <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
-          {% endfor %}
-        </select>
-      </p>
-      
-      <p>
-        Site Supervisor:    
-        <select name="employee_id">
-          {% for emp in employees %}
-          <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
-          {% endfor %}
-        </select>  
-      </p>
+    <section>
+      Project Name:
+      <select name="project_id">
+        {% for proj in projects %}
+        <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
+        {% endfor %}
+      </select>
+    </section>
     
-      <p>
-          Days on Site: <option id="days-onsite-counter">1</option>     
-      </p>
+    <section>
+      Site Supervisor:    
+      <select name="employee_id">
+        {% for emp in employees %}
+        <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
+        {% endfor %}
+      </select>  
+    </section>
+  
+    <section>
+      Days On Site: <textarea class="counter" id="days-on-site-counter" input type="textarea" name="days_on_site">1</textarea>
+    </section>
 
-      <p>           
-          Work Performed:<textarea input type="textarea" name="work_performed"></textarea>
-      </p>   
+    <section>           
+        Work Performed:<textarea input type="textarea" name="work_performed"></textarea>
+    </section>   
+  
+    <section>
+        Problems Encounterd:<textarea input type="textarea" name="problems_encountered"></textarea>
+    </section>        
     
-      <p>
-          Problems Encounterd:<textarea input type="textarea" name="problems_encountered"></textarea>
-      </p>        
-     
-      <p>
-          Client Requests:<textarea input type="textarea" name="client_requests"></textarea>
-      </p>
-      
-      <p>
-        <input type="submit" value="Add">
-      </p>
-      
-      <!-- <div id="TODO"></div><script src="/static/daily_report.js"></script> -->
-      
-      
- </form>     
+    <section>
+        Client Requests:<textarea input type="textarea" name="client_requests"></textarea>
+    </section>
+    
+    <section>
+      <input id="add" type="submit" value="Add">
+    </section>
+    
+    <!-- <div id="submit-status"></div>     
+    <script src="/static/js/daily_report.js"></script>       -->
+  </form>     
 
 {% endblock %} 

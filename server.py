@@ -1,4 +1,4 @@
-from flask import (Flask, render_template, request, redirect, flash, session)
+from flask import (Flask, render_template, request, redirect, flash, session, jsonify)
 
 # from model import connect_to_db
 import crud
@@ -30,22 +30,30 @@ def create_new_daily_reports():
 
     employee_id = request.form.get('employee_id') 
     days_on_site = request.form.get('days_on_site') 
-    worked_performed = request.form.get('work_performed') 
+    work_performed = request.form.get('work_performed') 
     problems_encountered = request.form.get('problems_encountered')
     client_requests = request.form.get('client_requests') 
     project_id = request.form.get('project_id')
 
     daily_report = crud.create_new_daily_report(employee_id, 
-        days_on_site,  worked_performed, problems_encountered, client_requests, project_id)
+        days_on_site,  work_performed, problems_encountered, client_requests, project_id)
     if daily_report:    
-        return render_template("daily_report_added.html",
-                        daily_report_id=project_id)
+        result_code = 'OK'
+        result_text = "Your daily report has been submitted"
     else:
-    # show the form, if it wasn't submitted
-        return render_template("homepage.html")
+        result_code = 'Error'
+        result_text = "Your daily report has not been submitted"
+    return jsonify({'code': result_code, 'msg': result_text})
+@app.route('/daily_reports/project_id')
+def show_daily_report(project_id):
+    """Get daily reports by project id."""
 
-@app.route('/project')     
-def view_all_projects():
+    daily_report = crud.get_daily_report_by_id(project_id)
+
+    return render_template('daily_report_details.html', daily_report=daily_report)
+
+@app.route('/projects')     
+def get_all_projects():
     """View all projects"""
     
     projects = crud.get_all_projects()
@@ -53,25 +61,25 @@ def view_all_projects():
     # print(projects)
     return render_template('all_projects.html', projects=projects)
 
-# @app.route('/daily_report', methods=['POST'])
-# def create_new_daily_reports():
-#     """Create a new daily reports"""
+@app.route('/projects', methods=['POST'])
+def create_new_project():
+    """Create a new project"""      
+     
+    project_name = request.form.get('project_name') 
+    planned_start_date = request.form.get('planned_start_date') 
+    actual_start_date = request.form.get('actual_start_date') 
+    actual_end_date = request.form.get('actual_end_date')
+    project_description = request.form.get('project_description') 
+    project_location = request.form.get('project_location')
 
-#     employee_id = request.form.get('employee_id') 
-#     days_on_site = request.form.get('days_on_site') 
-#     worked_performed = request.form.get('work_performed') 
-#     problems_encountered = request.form.get('problems_encountered')
-#     client_requests = request.form.get('client_requests') 
-#     project_id = request.form.get('project_id')
-
-#     daily_report = crud.create_new_daily_report(employee_id, 
-#         days_on_site,  worked_performed, problems_encountered, client_requests, project_id)
-#     if daily_report:    
-#         return render_template("daily_report_added.html",
-#                         daily_report_id=project_id)
-#     else:
-#     # show the form, if it wasn't submitted
-#         return render_template("homepage.html")
+    project = crud.create_new_project(project_name, planned_start_date, actual_start_date, 
+    actual_end_date, project_description, project_location)
+    if project:    
+        return render_template("project_added.html",
+                        project_id=project_name)
+    else:
+    # show the form, if it wasn't submitted
+        return render_template("homepage.html")
     
 
 @app.route('/login', methods=['POST'])
@@ -82,11 +90,6 @@ def user_login():
     password = request.form.get('password')
     
     employee = crud.check_employee_login_info(email, password)    
-
-    # if "employee_id" not in session:
-    #     session["employee_id"] = employee.employee_id
-    # else:
-    #     active_employee = session.get("employee_id")
 
     """Check to see if user login is sucessful"""
     if employee:

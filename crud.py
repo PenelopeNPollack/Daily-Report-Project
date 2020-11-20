@@ -17,6 +17,10 @@ def get_all_projects():
 def get_all_daily_reports():
     return DailyReport.query.all()
 
+def get_daily_report_by_id(daily_report_id):
+    """Return a movie by primary key."""
+    return DailyReport.query.get(daily_report_id)
+
 def create_new_daily_report(employee_id, days_on_site, work_performed, problems_encountered, 
     client_requests, project_id):
     """Create a new daily report and print a confirmation."""
@@ -33,7 +37,21 @@ def create_new_daily_report(employee_id, days_on_site, work_performed, problems_
 
     return daily_reports
 
+def create_new_project(project_name, planned_start_date, actual_start_date, 
+    actual_end_date, project_description, project_location):
+    """Create a new daily report and print a confirmation."""
 
+    projects = Project(project_name=project_name, 
+                       planned_start_date=planned_start_date, 
+                       actual_start_date=actual_start_date, 
+                       actual_end_date=actual_end_date, 
+                       project_description=project_description, 
+                       project_location=project_location)
+
+    db.session.add(projects)
+    db.session.commit()
+
+    return projects
 
 if __name__ == '__main__':
     from server import app
