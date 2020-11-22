@@ -6,6 +6,7 @@ from model import connect_to_db
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
+# A secret key needed to use Flask sessioning features
 app.secret_key = "secret"
 app.jinja_env.undefined = StrictUndefined
 
@@ -15,15 +16,12 @@ def index():
     
     return render_template("homepage.html")
 
-@app.route('/daily_report')     
-def view_all_daily_reports():
-    """View all daily reports"""
+@app.route('/days_on_site')
+def days_on_site():
+    """Return the number of days on a project site"""
+
+    return 
     
-    daily_reports = crud.get_all_daily_reports()
-
-    # print(daily_reports)
-    return render_template('all_daily_reports.html', daily_reports=daily_reports)
-
 @app.route('/daily_report', methods=['POST'])
 def create_new_daily_reports():
     """Create a new daily reports"""
@@ -37,19 +35,31 @@ def create_new_daily_reports():
 
     daily_report = crud.create_new_daily_report(employee_id, 
         days_on_site,  work_performed, problems_encountered, client_requests, project_id)
-    if daily_report:    
-        result_code = 'OK'
+    if daily_report:          
         result_text = "Your daily report has been submitted"
-    else:
-        result_code = 'Error'
+    else:        
         result_text = "Your daily report has not been submitted"
-    return jsonify({'code': result_code, 'msg': result_text})
+    return jsonify({'msg': result_text})
     
-@app.route('/daily_reports/project_id')
-def show_daily_report(project_id):
+@app.route('/daily_reports/<project_id>')
+def show_daily_reports(project_id):
     """Get daily reports by project id."""
+    daily_reports = crud.get_daily_report_by_id(project_id)
 
-    daily_report = crud.get_daily_report_by_id(project_id)
+    return render_template('daily_reports_by_project_id.html', daily_reports=daily_reports)
+
+@app.route('/daily_reports')     
+def get_all_daily_reports():
+    """View all daily reports"""
+    
+    daily_reports = crud.get_all_daily_reports()
+
+    return render_template('all_daily_reports.html', daily_reports=daily_reports)
+
+@app.route('/daily_report/<daily_report_id>')
+def get_daily_report_by_id(daily_report_id):
+
+    daily_report = crud.get_daily_report_by_id(daily_report_id)
 
     return render_template('daily_report_details.html', daily_report=daily_report)
 
@@ -59,10 +69,9 @@ def get_all_projects():
     
     projects = crud.get_all_projects()
 
-    # print(projects)
     return render_template('all_projects.html', projects=projects)
 
-@app.route('/projects', methods=['POST'])
+@app.route('/project', methods=['POST'])
 def create_new_project():
     """Create a new project"""      
      
@@ -76,11 +85,12 @@ def create_new_project():
     project = crud.create_new_project(project_name, planned_start_date, actual_start_date, 
     actual_end_date, project_description, project_location)
     if project:    
-        return render_template("project_added.html",
+        return render_template("all_projects.html",
                         project_id=project_name)
     else:
-    # show the form, if it wasn't submitted
-        return render_template("homepage.html")
+    # show a message that the form wasn't submitted
+        result_text = "Your daily report has not been submitted"
+    return jsonify({'msg': result_text})
 
 @app.route('/return_count/<project_id>')
 def return_days_on_site_count(project_id):

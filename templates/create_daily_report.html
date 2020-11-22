@@ -5,7 +5,8 @@
   <h2>Project Info:</h2>
   <ul>
     <li><a href="/projects">View All Projects</a></li>
-    <li><a href="/projects"> Create A New Project</a></li>
+    <li><a href="/project"> Create A New Project</a></li>    
+    <li><a href="/daily_reports"> View All Daily Reports</a></li>
   </ul>
   <h3>Create a Daily Report</h3>
   <form action="/daily_report" method="POST">
@@ -21,16 +22,15 @@
     
     <section>
       Site Supervisor:    
-      <select name="employee_id">
+      <select id="site_supervisor" name="employee_id">
         {% for emp in employees %}
         <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
         {% endfor %}
-      </select>  
+      </select>
     </section>
   
     <section>
-      Days On Site:
-      <button id='days_on_site'>view</button>          
+        Days On Site: <span id="days_on_site">Show Days</span>
     </section>
 
     <section>           
