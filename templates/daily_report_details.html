@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+<h1>Daily Report {{ daily_report.daily_report_id }}</h1>
+
+<p>
+Created by:  {{ daily_report.employee_id }}
+</p>
+
+<p>
+Days On Site:  {{ daily_report.daily_report_id }}
+</p>
+
+<p>
+Work Performed:    {{ daily_report.work_performed }}
+</p>
+
+<p>
+Problems Encountered:    {{ daily_report.problems_encountered }}
+</p>
+
+<p>
+Client Requests:    {{ daily_report.client_requests }}
+</p>
+
+
+{% endblock %}

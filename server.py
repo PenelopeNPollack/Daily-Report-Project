@@ -26,15 +26,15 @@ def days_on_site():
 def create_new_daily_reports():
     """Create a new daily reports"""
 
-    employee_id = request.form.get('employee_id') 
-    days_on_site = request.form.get('days_on_site') 
+    employee_id = request.form.get('employee_id')
+    employee_name=request.form.get('employee_name') 
     work_performed = request.form.get('work_performed') 
     problems_encountered = request.form.get('problems_encountered')
     client_requests = request.form.get('client_requests') 
     project_id = request.form.get('project_id')
 
     daily_report = crud.create_new_daily_report(employee_id, 
-        days_on_site,  work_performed, problems_encountered, client_requests, project_id)
+        employee_name,  work_performed, problems_encountered, client_requests, project_id)
     if daily_report:          
         result_text = "Your daily report has been submitted"
     else:        
@@ -44,7 +44,7 @@ def create_new_daily_reports():
 @app.route('/daily_reports/<project_id>')
 def show_daily_reports(project_id):
     """Get daily reports by project id."""
-    daily_reports = crud.get_daily_report_by_id(project_id)
+    daily_reports = crud.get_all_daily_reports_by_project(project_id)
 
     return render_template('daily_reports_by_project_id.html', daily_reports=daily_reports)
 
@@ -59,8 +59,9 @@ def get_all_daily_reports():
 @app.route('/daily_report/<daily_report_id>')
 def get_daily_report_by_id(daily_report_id):
 
-    daily_report = crud.get_daily_report_by_id(daily_report_id)
+    daily_report = crud. get_daily_report_by_id(daily_report_id)
 
+    print(daily_report)
     return render_template('daily_report_details.html', daily_report=daily_report)
 
 @app.route('/projects')     

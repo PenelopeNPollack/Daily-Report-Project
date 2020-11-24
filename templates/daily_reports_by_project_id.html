@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}All Daily Reports For A Project{% endblock %}
+
+{% block body %}
+  <h1>Daily Reports</h1>
+
+  <ul>
+    {% for daily in daily_reports %}
+      <li>
+        <a href="/daily_report/{{ daily.daily_report_id }}">
+          {{ daily.daily_report_id }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

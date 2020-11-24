@@ -21,7 +21,7 @@ def get_all_daily_reports_by_project(project_id):
 
 def get_daily_report_by_id(daily_report_id):
     """Return a DailyReport by primary key."""
-    return DailyReport.query.filter_by(daily_report_id=daily_report_id)
+    return DailyReport.query.filter_by(daily_report_id = daily_report_id).first()
 
 def get_count_of_daily_reports_by_project(project_id):
     """ return a count of daily reports representing the number of days worked on a given project"""
@@ -31,8 +31,8 @@ def create_new_daily_report(employee_id, days_on_site, work_performed, problems_
     client_requests, project_id):
     """Create a new daily report and print a confirmation."""
 
-    daily_reports = DailyReport(employee_id=employee_id, 
-                                days_on_site=days_on_site, 
+    daily_reports = DailyReport(employee_id=employee_id,  
+                                days_on_site=days_on_site,    
                                 work_performed=work_performed, 
                                 problems_encountered=problems_encountered,
                                 client_requests=client_requests,

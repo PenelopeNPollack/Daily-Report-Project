@@ -41,11 +41,12 @@ SET default_with_oids = false;
 CREATE TABLE public.daily_reports (
     daily_report_id integer NOT NULL,
     employee_id integer,
+    employee_name varchar,
     days_on_site integer,
     work_performed text,
     problems_encountered text,
     client_requests text,
-    project_id int
+    project_id int NOT NULL
 );
 
 
@@ -63,6 +64,14 @@ CREATE SEQUENCE public.daily_reports_daily_report_id_seq
     NO MAXVALUE
     CACHE 1;
 
+CREATE SEQUENCE public.daily_reports_days_on_site_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 ALTER TABLE public.daily_reports_daily_report_id_seq OWNER TO vagrant;
 
@@ -73,7 +82,7 @@ ALTER TABLE public.daily_reports_daily_report_id_seq OWNER TO vagrant;
 ALTER SEQUENCE public.daily_reports_daily_report_id_seq OWNED BY public.daily_reports.daily_report_id;
 
 
---
+
 -- Name: employees; Type: TABLE; Schema: public; Owner: vagrant
 --
 
