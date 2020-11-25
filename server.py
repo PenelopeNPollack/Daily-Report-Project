@@ -119,6 +119,9 @@ def user_login():
         flash("Login info incorrect, please try again")
         return redirect('/')
 
+@app.route('/logout')
+def logout():
+    return redirect('/')
 
 if __name__ == '__main__':
     crud.connect_to_db(app)

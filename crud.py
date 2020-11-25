@@ -7,6 +7,9 @@ def check_employee_login_info(email, password):
     """check if the users email and password match in the database"""
     return Employee.query.filter((Employee.email == email) & (Employee.password == password)).first()
 
+def logout():
+    return ('/')
+
 def get_all_employees():
     return Employee.query.all()
     
