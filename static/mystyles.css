@@ -1,0 +1,14 @@
+body {
+  background-color: lightblue;
+  color: darkblue;
+  font-family: sans-serif;
+  font-size: 1.5em;
+}
+
+input {
+  font-size: 1.2em;
+  margin: 5px;
+  padding: 10px;
+  background-color: darkblue;
+  color: lightblue;
+}

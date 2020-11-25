@@ -39,7 +39,9 @@ def create_new_daily_reports():
         result_text = "Your daily report has been submitted"
     else:        
         result_text = "Your daily report has not been submitted"
-    return jsonify({'msg': result_text})
+        flash(result_text)
+    return render_template('daily_report_details.html', daily_report=daily_report)
+
     
 @app.route('/daily_reports/<project_id>')
 def show_daily_reports(project_id):
@@ -86,8 +88,7 @@ def create_new_project():
     project = crud.create_new_project(project_name, planned_start_date, actual_start_date, 
     actual_end_date, project_description, project_location)
     if project:    
-        return render_template("all_projects.html",
-                        project_id=project_name)
+        return render_template("all_projects.html", project_id=project_name)
     else:
     # show a message that the form wasn't submitted
         result_text = "Your daily report has not been submitted"
@@ -112,8 +113,7 @@ def user_login():
     if employee:
         flash("Successful login")
         employees=crud.get_all_employees()
-        projects=crud.get_all_projects()
-        # days_on_site=crud.get_all_daily_reports_by_project()
+        projects=crud.get_all_projects()        
         return render_template('create_daily_report.html', projects=projects, employees=employees)
     else:
         flash("Login info incorrect, please try again")

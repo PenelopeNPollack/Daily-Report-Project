@@ -1,38 +1,24 @@
 {% extends 'base.html' %}
-{% block title %}Daily Reports Home{% endblock %}
+{% block title %}Create Daily Reports Log In{% endblock %}
+
 {% block body %}
   <h1>Welcome, Please Log In</h1>
 
   <form action="/login" method="POST">
-    <section>
+    <p>
       Email <input type="email" name="email">
-    </section>
+    </p>
 
-    <section></section>
+    <p>
       Password <input type="password" name="password">
-    </section>
-
-    <section>
-      <input type="submit" value="Log In">
-      <br></br>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </section>
-  </form>
-{% endblock %} 
-  
-
-
-
-
-  
-
-
-
-
-
-<input class="btn btn-lg btn-primary btn-block" type="submit"></input>
-
+    </p>
     
+    <p>
+      <input type="submit" value="Log In">      
+    </p>
 
+  </form>
+
+<p><img src = "static/images/fusion.jpg"></p>
+    
+{% endblock %}
