@@ -63,8 +63,8 @@ def get_all_daily_reports():
 @app.route('/daily_report/<daily_report_id>')
 def get_daily_report_by_id(daily_report_id):
 
-    report_info = crud. get_daily_report_by_id(daily_report_id)
-    count = crud.get_count_of_daily_reports_by_project(report_info['daily_report'].project_id)
+    report_info = crud.get_daily_report_by_id(daily_report_id)
+    count = return_days_on_site_count(report_info['project'].project_id)
     print(report_info)
     return render_template('daily_report_details.html', report_info=report_info, count=count)
 
@@ -79,7 +79,7 @@ def get_all_projects():
 @app.route('/return_count/<project_id>')
 def return_days_on_site_count(project_id):
     count = crud.get_count_of_daily_reports_by_project(project_id)
-    return str(count)   
+    return str(count)
 
 @app.route('/login', methods=['POST'])
 def user_login():

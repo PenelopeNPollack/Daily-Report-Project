@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% block title %}Daily Report Details{% endblock %}
 {% block body %}
 <form>
     <ul>
         <li><a href="/projects">View All Projects</a></li>
-        <li><a href="/daily_reports"> View All Daily Reports</a></li>
-        <li><a href="/daily_report">Create A New Daily Report</a></li>
+        <li><a href="/daily_reports"> View All Daily Reports</a></li>       
     </ul>
 
     <h1>Daily Report:</h1>
 
     <p>
     Created by:  {{ report_info["employee"].full_name }}
+    </p>
+
+    <p>
+    Project: {{ report_info["project"].project_name }}
     </p>
 
     <p>
@@ -35,6 +39,9 @@
         </form>
       </section>
 
-    <script src="/static/daily_report.js"></script> 
+    <!-- <script src="/static/daily_report.js"></script>  -->
 </form>
+
+<p><img src = "static/images/fusion.jpg"></p>
+
 {% endblock %}
