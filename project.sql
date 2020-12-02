@@ -41,7 +41,7 @@ SET default_with_oids = false;
 CREATE TABLE public.daily_reports (
     daily_report_id integer NOT NULL,
     employee_id integer,
-    employee_name varchar,
+    full_name varchar,
     days_on_site integer,
     work_performed text,
     problems_encountered text,
@@ -64,15 +64,6 @@ CREATE SEQUENCE public.daily_reports_daily_report_id_seq
     NO MAXVALUE
     CACHE 1;
 
-CREATE SEQUENCE public.daily_reports_days_on_site_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
 ALTER TABLE public.daily_reports_daily_report_id_seq OWNER TO vagrant;
 
 --
@@ -82,7 +73,7 @@ ALTER TABLE public.daily_reports_daily_report_id_seq OWNER TO vagrant;
 ALTER SEQUENCE public.daily_reports_daily_report_id_seq OWNED BY public.daily_reports.daily_report_id;
 
 
-
+--
 -- Name: employees; Type: TABLE; Schema: public; Owner: vagrant
 --
 
@@ -124,12 +115,7 @@ ALTER SEQUENCE public.employees_employee_id_seq OWNED BY public.employees.employ
 
 CREATE TABLE public.projects (
     project_id integer NOT NULL,
-    project_name character varying(50) NOT NULL,
-    planned_start_date date NOT NULL,
-    actual_start_date date,
-    actual_end_date date,
-    project_description character varying,
-    project_location character varying
+    project_name character varying(50) NOT NULL
 );
 
 
@@ -194,7 +180,7 @@ ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('pu
 -- Data for Name: daily_reports; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.daily_reports (daily_report_id, employee_id, days_on_site, work_performed, problems_encountered, client_requests, project_id) FROM stdin;
+COPY public.daily_reports (daily_report_id, employee_id, full_name, days_on_site, work_performed, problems_encountered, client_requests, project_id) FROM stdin;
 \.
 
 
@@ -210,7 +196,7 @@ COPY public.employees (employee_id, full_name, email, password) FROM stdin;
 -- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY public.projects (project_id, project_name, planned_start_date, actual_start_date, actual_end_date, project_description, project_location) FROM stdin;
+COPY public.projects (project_id, project_name) FROM stdin;
 \.
 
 

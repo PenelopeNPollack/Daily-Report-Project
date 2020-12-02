@@ -1,60 +1,89 @@
 {% extends 'base.html' %}
-{% block title %}Create Daily Report{% endblock %}
+{% block title %}Create Daily Report:{% endblock %}
 {% block body %}
+
+<ul>
+  <li><a href="/projects">View All Projects</a></li>
+  <li><a href="/daily_reports"> View All Daily Reports</a></li>
+</ul>
+
   <h1>Attractions Install Advisor Daily Activity Report</h1>
-  <h2>Project Info:</h2>
-  <ul>
-    <li><a href="/projects">View All Projects</a></li>
-    <li><a href="/daily_reports"> View All Daily Reports</a></li>
-  </ul>
-  <h3>Create a Daily Report</h3>
+
+  <h2>Create a Daily Report:</h2>
   <form action="/daily_report" method="POST">
 
-    <section>
-      Project Name:
-      <select name="project_id" id="project_select">
-        {% for proj in projects %}
-        <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
-        {% endfor %}
-      </select>
-    </section>
-    
-    <section>
-      Site Supervisor:    
-      <select id="site_supervisor" name="employee_id">
-        {% for emp in employees %}
-        <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
-        {% endfor %}
-      </select>
-    </section>
-  
-    <section>
-        Days On Site: <span id="days_on_site">Show Days</span>
-    </section>
+    <table class="center" style="width: 50%;" border="4" cellpadding="47">
+      <tbody>
 
-    <section>           
-        Work Performed:<textarea input type="textarea" name="work_performed"></textarea>
-    </section>   
-  
+        <tr>
+          <td>Project Name: </td>
+          <td ALIGN="center">
+            <select name="project_id" id="project_select">
+                  {% for proj in projects %}
+              <option value="{{ proj.project_id }}">{{ proj.project_name }}</option>
+                  {% endfor %}
+            </select>
+          </td>        
+        </tr>
+
+        <tr>
+          <td>&nbsp;Site Supervisor:</td>
+          <td ALIGN="center">
+            <select id="site_supervisor" name="employee_id">
+              {% for emp in employees %}
+              <option value="{{ emp.employee_id }}">{{ emp.full_name }}</option>
+              {% endfor %}
+            </select>
+          </td>        
+        </tr>
+
+        <tr>
+          <td>&nbsp;Days On Site:</td>
+          <td ALIGN="center">
+            <div>
+              <text input type="text" name="days_on_site" id="days_on_site">Show Days</text>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>&nbsp;Work Performed:</td>
+          <td ALIGN="center">
+            <textarea input type="textarea" name="work_performed"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td>&nbsp;Problems Encountered:</td>
+          <td ALIGN="center">
+            <textarea input type="textarea" name="problems_encountered"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td>&nbsp;Client Requests:</td>
+          <td ALIGN="center">
+            <textarea input type="textarea" name="client_requests"></textarea>
+          </td>
+        </tr>
+
+      </tbody>
+    </table> 
+   <br></br>
+          
     <section>
-        Problems Encounterd:<textarea input type="textarea" name="problems_encountered"></textarea>
-    </section>        
-    
-    <section>
-        Client Requests:<textarea input type="textarea" name="client_requests"></textarea>
-    </section>
-    
-    <section>
-      <input id="add" type="submit" value="Add">
-    </section>
+      <form action = "/daily_report" method = "POST">
+        <input id="add" type="submit" value="Add">
+      </form>
+    </section> 
 
     <section>
-      <form action = "/">
+      <form action = "/logout" method = "GET">
           <input id="logout" type = "submit" value = "Log Out"/> 
       </form>
     </section>
          
     <script src="/static/daily_report.js"></script>       
-  </form>     
+  </form>        
 
 {% endblock %} 

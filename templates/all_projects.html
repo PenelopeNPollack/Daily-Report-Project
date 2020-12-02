@@ -2,21 +2,24 @@
 {% block title %}All Projects{% endblock %}
 
 {% block body %}
-  <h1>All Projects</h1>
 
-  <ul>
-    {% for proj in projects %}
-      <li>
-        <a href="/daily_reports/{{ proj.project_id }}">
-          {{ proj.project_name }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-  
-  <section>
-    <form action = "/">
-        <input type = "submit" value = "Log Out"/> 
-    </form>
-  </section>
+
+<h1>All Projects</h1>
+<p>Click on a project to view its Daily Reports</p>
+
+<ul>
+  {% for proj in projects %}
+    <li>
+      <a href="/daily_reports/{{ proj.project_id }}">
+        {{ proj.project_name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<section>
+  <form action = "/">
+      <input type = "submit" value = "Log Out"/> 
+  </form>
+</section>
 {% endblock %}

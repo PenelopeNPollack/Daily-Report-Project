@@ -1,34 +1,40 @@
 {% extends 'base.html' %}
-
-
-
 {% block body %}
-<h1>Daily Report {{ daily_report.daily_report_id }}</h1>
+<form>
+    <ul>
+        <li><a href="/projects">View All Projects</a></li>
+        <li><a href="/daily_reports"> View All Daily Reports</a></li>
+        <li><a href="/daily_report">Create A New Daily Report</a></li>
+    </ul>
 
-<p>
-Created by:  {{ daily_report.employee_id }}
-</p>
+    <h1>Daily Report:</h1>
 
-<p>
-Days On Site:  {{ daily_report.daily_report_id }}
-</p>
+    <p>
+    Created by:  {{ report_info["employee"].full_name }}
+    </p>
 
-<p>
-Work Performed:    {{ daily_report.work_performed }}
-</p>
+    <p>
+        Total Days On Site: <span id="days_on_site">{{ count }}</span>
+    </p>
 
-<p>
-Problems Encountered:    {{ daily_report.problems_encountered }}
-</p>
+    <p>
+    Work Performed:    {{  report_info["daily_report"].work_performed }}
+    </p>
 
-<p>
-Client Requests:    {{ daily_report.client_requests }}
-</p>
+    <p>
+    Problems Encountered:    {{  report_info["daily_report"].problems_encountered }}
+    </p>
 
-<section>
-    <form action = "/">
-        <input type = "submit" value = "Log Out"/> 
-    </form>
-</section>
+    <p>
+    Client Requests:    {{  report_info["daily_report"].client_requests }}
+    </p>
 
+    <section>
+        <form action = "/logout" method = "GET">
+            <input id="logout" type = "submit" value = "Log Out"/> 
+        </form>
+      </section>
+
+    <script src="/static/daily_report.js"></script> 
+</form>
 {% endblock %}

@@ -42,12 +42,7 @@ class Project(db.Model):
         db.Integer, autoincrement=True, unique=True, primary_key=True
     )
     project_name = db.Column(db.String, unique=True, nullable=False)
-    planned_start_date = db.Column(db.DateTime, nullable=False)
-    actual_start_date = db.Column(db.DateTime)
-    actual_end_date = db.Column(db.DateTime)
-    project_description = db.Column(db.String)
-    project_location = db.Column(db.String)
-
+    
     def __repr__(self):
         """Clear representation of a project."""
 

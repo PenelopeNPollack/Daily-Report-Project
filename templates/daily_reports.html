@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}All Daily Reports{% endblock %}
 {% block body %}
-  <h1>All Daily Reports</h1>
 
-  <ul>
-    {% for daily_report in daily_reports %}
-      <li>
-        <a href="/daily_report/{{ daily_report.daily_report_id }}">
-          {{ daily_report.daily_report_id }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-  
-  <section>
-    <form action = "/">
-        <input type = "submit" value = "Log Out"/> 
-    </form>
-  </section>    
-{% endblock %}
+<ul>
+  <li><a href="/projects">View All Projects</a></li>
+  <li><a href="/daily_reports"> View All Daily Reports</a></li>
+</ul>
+
+<h1>All Daily Reports</h1>
+
+<ul>
+  {% for daily_report in daily_reports %}
+    <li>
+      <a href="/daily_report/{{ daily_report.daily_report_id }}">
+        {{ loop.index }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<section>
+  <form action = "/logout" method = "GET">
+      <input id="logout" type = "submit" value = "Log Out"/> 
+  </form>
+</section>  
+
+<endblock %}

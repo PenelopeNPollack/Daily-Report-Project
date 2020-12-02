@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}All Daily Reports For A Project{% endblock %}
+{% block title %}All Daily Reports{% endblock %}
 
 {% block body %}
-  <h1>Daily Reports</h1>
+
+<ul>
+  <li><a href="/projects">View All Projects</a></li>
+</ul>
+
+  <h1>Daily Reports Listed By Daily Report Number</h1>
 
   <ul>
     {% for daily in daily_reports %}
       <li>
         <a href="/daily_report/{{ daily.daily_report_id }}">
-          {{ daily.daily_report_id }}
+          {{ loop.index }}
         </a>
       </li>
     {% endfor %}
@@ -19,5 +24,6 @@
         <input type = "submit" value = "Log Out"/> 
     </form>
   </section>    
+  
 {% endblock %}
 
