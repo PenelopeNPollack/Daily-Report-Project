@@ -2,28 +2,61 @@
 {% block title %}All Daily Reports{% endblock %}
 
 {% block body %}
-
-<ul>
-  <li><a href="/projects">View All Projects</a></li>
-</ul>
-
-  <h1>Daily Reports Listed By Daily Report Number</h1>
-
-  <ul>
-    {% for daily in daily_reports %}
-      <li>
-        <a href="/daily_report/{{ daily.daily_report_id }}">
-          {{ loop.index }}
-        </a>
-      </li>
-    {% endfor %}
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="/logout">Sign out</a>
+    </li>
   </ul>
+</nav>
 
-  <section>
-    <form action = "/">
-        <input type = "submit" value = "Log Out"/> 
-    </form>
-  </section>    
-  <p><img src = "static/images/master-blaster.jpg"></p> 
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/projects">
+              <span data-feather="file"></span>
+              View All Projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/daily_reports">
+              <span data-feather="file"></span>
+              View All Daily Reports
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Daily Reports Listed By Daily Report Number</h1>
+      </div>
+      <p>Penny, you should add some more information about the daily reports to this list to help the user find what they are looking for.</p>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <tbody>
+            {% for daily in daily_reports %}
+            <tr>
+              <td>
+              <a href="/daily_report/{{ daily.daily_report_id }}">
+                {{ loop.index }}
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p><img src = "static/images/master-blaster.jpg"></p> 
+    </main>
+  </div>
+  </div>
 {% endblock %}
 

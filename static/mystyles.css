@@ -1,9 +1,26 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg1 {
+  /* The image used */
+  background-image: url("/static/images/fusion.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
 body {
-  background-image: url("paper.gif");
   background-position: center; 
-  background-color: lightblue;  
+  background-color: white;  
   color: darkblue;
-  opacity: 0.3;
   font-family: sans-serif;
   font-size: 1.5em;
 }
@@ -12,8 +29,8 @@ input {
   font-size: 1.2em;
   margin: 5px;
   padding: 10px;
-  background-color: darkblue;
-  color: lightblue;
+  background-color: #99d0e2;
+  color: darkblue;
 }
 
 h1 {
@@ -36,11 +53,30 @@ table.center {
 
 div {
   background-color: white;
-  width: 30x;
+  width: 10x;
   height: 10;
-  border: 1px solid black;
+  border: 1px solid darkblue;
   padding: 10px;
   margin: 10px;
 }
+
+textarea {
+  width: 250px;
+  height: 100px;
+  border: 1px solid darkblue;
+}
+
+.box {
+  width: 250px;
+  height: 100px;
+  border: 1px solid darkblue;
+  font-size: 25px;
+  color: darkblue;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 4px 4px #ccc;
+}
+
+
 
 
