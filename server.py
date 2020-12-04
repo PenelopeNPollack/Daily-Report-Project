@@ -64,7 +64,10 @@ def get_all_daily_reports():
 def get_daily_report_by_id(daily_report_id):
 
     report_info = crud.get_daily_report_by_id(daily_report_id)
-    count = return_days_on_site_count(report_info['project'].project_id)
+    if report_info['project'] == None:
+        count = 0
+    else:
+        count = return_days_on_site_count(report_info['project'].project_id)
     print(report_info)
     return render_template('daily_report_details.html', report_info=report_info, count=count)
 

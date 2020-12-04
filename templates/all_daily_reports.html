@@ -3,7 +3,7 @@
 
 {% block body %}
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Slippery Slopes Waterslides</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -36,11 +36,17 @@
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Daily Reports Listed By Daily Report Number</h1>
+        <h1 class="h2">All Daily Reports</h1>
       </div>
-      <p>Penny, you should add some more information about the daily reports to this list to help the user find what they are looking for.</p>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Daily Report ID</th>
+              <th>Project Name</th>
+              <th>Employee Name</th>
+            </tr>
+          </thead>
           <tbody>
             {% for daily in daily_reports %}
             <tr>
@@ -49,12 +55,17 @@
                 {{ loop.index }}
               </a>
             </td>
+            <td>
+              {{ daily.project.project_name }}
+            </td>
+            <td>
+              {{ daily.employee.full_name }}
+            </td>
           </tr>
           {% endfor %}
           </tbody>
         </table>
       </div>
-      <p><img src = "static/images/master-blaster.jpg"></p> 
     </main>
   </div>
   </div>
