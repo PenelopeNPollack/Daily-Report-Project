@@ -3,10 +3,29 @@
 {% block title %}Create Daily Reports Log In{% endblock %}
 
 {% block body %}
+
+<script type="text/javascript">
+  //Hide Navbar
+  var scrollp=0;
+ (function ($) {
+     $(document).ready(function () {
+ 
+         // hide .navbar first
+         $(".navbar").hide();
+ 
+     });
+ }(jQuery));
+ </script>
+
 <body class="text-center bg1">
   <!-- Custom styles for this template -->
   <link href="static/signin.css" rel="stylesheet">
   <form class="form-signin" action="/login" method="POST">
+    {% for msg in get_flashed_messages() %}
+    <p class="alert alert-info">
+      {{ msg }}
+    </p>
+    {% endfor %}
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="email" class="sr-only">Email address</label>
     <input type="email" name="email" class="form-control" placeholder="Email address" required>

@@ -84,6 +84,13 @@ def return_days_on_site_count(project_id):
     count = crud.get_count_of_daily_reports_by_project(project_id)
     return str(count)
 
+@app.route('/create_daily_report', methods=['GET'])
+def create_daily_report():
+    employees=crud.get_all_employees()
+    projects=crud.get_all_projects()        
+
+    return render_template('create_daily_report.html', projects=projects, employees=employees)
+
 @app.route('/login', methods=['POST'])
 def user_login():
     """Log an employee into the website"""
@@ -96,13 +103,9 @@ def user_login():
     """Check to see if user login is sucessful"""
     if employee:
         session["employee_id"] =  employee.employee_id
-        flash("Successful login")
-        employees=crud.get_all_employees()
-        projects=crud.get_all_projects()        
-
-        return render_template('create_daily_report.html', projects=projects, employees=employees)
+        flash("Login Successful")
+        return create_daily_report()
     else:
-
         flash("Login info incorrect, please try again")
         return redirect('/')
 

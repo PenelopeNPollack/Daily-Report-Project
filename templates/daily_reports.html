@@ -2,6 +2,34 @@
 {% block title %}All Daily Reports{% endblock %}
 {% block body %}
 
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/projects">
+              <span data-feather="file"></span>
+              View All Projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/daily_reports">
+              <span data-feather="file"></span>
+              View All Daily Reports
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create_daily_report">
+              <span data-feather="file"></span>
+              Create A Daily Report
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
 <ul>
   <li><a href="/projects">View All Projects</a></li>
   <li><a href="/daily_reports"> View All Daily Reports</a></li>
