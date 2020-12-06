@@ -42,6 +42,7 @@ class Project(db.Model):
         db.Integer, autoincrement=True, unique=True, primary_key=True
     )
     project_name = db.Column(db.String, unique=True, nullable=False)
+    days_on_site = db.Column(db.Integer, autoincrement=True)
     
     def __repr__(self):
         """Clear representation of a project."""
@@ -76,7 +77,7 @@ class DailyReport(db.Model):
     daily_report_id = db.Column(
         db.Integer, autoincrement=True, unique=True, primary_key=True)
     employee_id = db.Column(db.Integer, db.ForeignKey("employees.employee_id"), nullable=False) 
-    days_on_site = db.Column(db.Integer)
+    days_on_site = db.Column(db.String)
     work_performed = db.Column(db.Text)
     problems_encountered = db.Column(db.Text)
     client_requests = db.Column(db.Text)

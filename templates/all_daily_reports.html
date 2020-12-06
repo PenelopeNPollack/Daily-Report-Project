@@ -48,18 +48,18 @@
             {% for daily in daily_reports %}
             <tr>
               <td>
-              <a href="/daily_report/{{ daily.daily_report_id }}">
-                {{ loop.index }}
-              </a>
-            </td>
-            <td>
-              {{ daily.project.project_name }}
-            </td>
-            <td>
-              {{ daily.employee.full_name }}
-            </td>
-          </tr>
-          {% endfor %}
+                <a href="/daily_report/{{ daily.daily_report_id }}">
+                  {{ loop.index }}
+                </a>
+              </td>
+              <td>
+                {{ daily.project.project_name }}
+              </td>
+              <td>
+                {{ daily.employee.full_name }}
+              </td>
+            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

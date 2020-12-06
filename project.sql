@@ -127,7 +127,8 @@ ALTER TABLE public.projects OWNER TO vagrant;
 
 CREATE TABLE public.projects_employees (
     employees_id integer,
-    project_id integer
+    project_id integer,
+    days_on_site integer
 );
 
 
@@ -145,6 +146,13 @@ CREATE SEQUENCE public.projects_project_id_seq
     NO MAXVALUE
     CACHE 1;
 
+CREATE SEQUENCE public.projects_days_on_site_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 ALTER TABLE public.projects_project_id_seq OWNER TO vagrant;
 
@@ -153,6 +161,14 @@ ALTER TABLE public.projects_project_id_seq OWNER TO vagrant;
 --
 
 ALTER SEQUENCE public.projects_project_id_seq OWNED BY public.projects.project_id;
+
+ALTER TABLE public.projects_days_on_site_seq OWNER TO vagrant;
+
+--
+-- Name: projects_days_on_site_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: vagrant
+--
+
+ALTER SEQUENCE public.projects_days_on_site_seq OWNED BY public.projects.project_id;
 
 
 --
@@ -174,6 +190,13 @@ ALTER TABLE ONLY public.employees ALTER COLUMN employee_id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('public.projects_project_id_seq'::regclass);
+
+
+--
+-- Name: projects days_on_site; Type: DEFAULT; Schema: public; Owner: vagrant
+--
+
+ALTER TABLE ONLY public.projects ALTER COLUMN days_on_site SET DEFAULT nextval('public.projects_days_on_site_seq'::regclass);
 
 
 --

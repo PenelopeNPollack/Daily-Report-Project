@@ -44,7 +44,9 @@
     </p>
 
     <p>
-        Total Days On Site: <span id="days_on_site">{{ count }}</span>
+    Day On Site:  {{ report_info["daily_report"].days_on_site }}
+                        <br></br>
+    Total Project Days On Site: <span id="days_on_site">{{ count }}</span>        
     </p>
 
     <p>
@@ -62,4 +64,5 @@
 </main>
 </div>
 </div>
+
 {% endblock %}
